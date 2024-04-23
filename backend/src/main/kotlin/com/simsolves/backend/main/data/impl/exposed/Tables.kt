@@ -18,6 +18,7 @@ object Rooms : LongIdTable("Rooms") {
 }
 
 // TODO: other custom user-related metadata
+// TODO: include information about mean value of each PuzzleCategory
 object Users : LongIdTable("Users") {
   val username = text("username").uniqueIndex()
   val email = text("email").uniqueIndex()

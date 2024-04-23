@@ -1,17 +1,18 @@
 package com.simsolves.backend.main.data
 
 import com.simsolves.backend.main.model.User
-import com.simsolves.backend.main.model.error.AppError
 import com.simsolves.backend.main.model.error.AppResult
 import com.simsolves.backend.main.model.error.Failure
 import com.simsolves.backend.main.model.error.ValidationError
 
-interface AppService {
-  suspend fun createUser(user: User): AppResult<Long, AppError>
+interface AppValidator {
+
+  suspend fun validateUserCreation(user: User): AppResult<Boolean, ValidationError>
 }
 
-abstract class AppServiceAdapter : AppService {
-  override suspend fun createUser(user: User): AppResult<Long, AppError> {
+abstract class AppValidatorAdapter : AppValidator {
+
+  override suspend fun validateUserCreation(user: User): AppResult<Boolean, ValidationError> {
     return Failure(ValidationError.CanNotToCreate)
   }
 }
