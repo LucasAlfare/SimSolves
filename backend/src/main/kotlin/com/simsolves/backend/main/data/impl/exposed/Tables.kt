@@ -22,10 +22,10 @@ object Users : LongIdTable("Users") {
   val username = text("username").uniqueIndex()
   val email = text("email").uniqueIndex()
   val hashedPassword = text("hashed_password")
-  val personalBestRelatedSolveId = long("personal_best_related_solve_id").references(Solves.id).nullable()
+  val personalBestRelatedSolveId = long("personal_best_related_solve_id").references(Solves.id).nullable().default(null)
 
   // can be null; if null, then is not in any room
-  val currentRoomId = long("current_room_id").references(Rooms.id).nullable()
+  val currentRoomId = long("current_room_id").references(Rooms.id).nullable().default(null)
 }
 
 object Admins : LongIdTable("Admins") {
