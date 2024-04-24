@@ -14,11 +14,11 @@ object Rooms : LongIdTable("Rooms") {
   val duration = long("duration").default(ONE_DAY)
   val rawChatContent = largeText("chat_content").default("")
 
-  // TODO: implement banned users list
+  // TODO: implement banned users IDs list
 }
 
 // TODO: other custom user-related metadata
-// TODO: include information about mean value of each PuzzleCategory
+// TODO: include information about average value of time of each PuzzleCategory
 object Users : LongIdTable("Users") {
   val username = text("username").uniqueIndex()
   val email = text("email").uniqueIndex()
