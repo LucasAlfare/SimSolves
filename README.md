@@ -23,7 +23,7 @@ O cubo mágico é um quebra-cabeça tridimensional desafiador e popular em todo 
 # Tecnologias:
 - Desenvolvimento Frontend: HTML, CSS, JavaScript e Frameworks como React.js/ReactNative para criar uma interface de usuário responsiva e moderna.
 - Desenvolvimento Backend: Kotlin com Exposed e Ktor para criar o backend da plataforma e gerenciar as interações entre os usuários. Kotlin é uma linguagem moderna e concisa que se integra bem com o Java Virtual Machine (JVM), oferecendo segurança de tipo estático e expressividade. Exposed é uma biblioteca Kotlin para acesso a banco de dados que simplifica o desenvolvimento de aplicativos que interagem com bancos de dados SQL.
-- Comunicação em Tempo Real: WebSockets para permitir a comunicação em tempo real entre os participantes das solves.
+- Comunicação em Tempo Real: Firebase Real Time para permitir a comunicação em tempo real entre os participantes das solves, bem como da definição de valores de estados em tempo real.
 
 # Implementação e Etapas:
 ## Fase 1 - Desenvolvimento da Plataforma:

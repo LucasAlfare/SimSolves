@@ -50,6 +50,9 @@ dependencies {
    */
   implementation("com.zaxxer:HikariCP:5.1.0")
 
+  // dependência para Firebase Admin
+  implementation("com.google.firebase:firebase-admin:9.2.0")
+
   // isso aqui serve apenas para gerar os logs da engine do servidor...
   implementation("ch.qos.logback:logback-classic:1.5.3")
 

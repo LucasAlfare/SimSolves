@@ -7,25 +7,20 @@ import org.jetbrains.exposed.dao.id.LongIdTable
 
 object Rooms : LongIdTable("Rooms") {
   val name = text("name").uniqueIndex()
-  val relatedAdminId = long("related_admin_id").references(Admins.id)
+  val currentRelatedAdminId = long("current_related_admin_id").references(Admins.id)
   val minimumTimeRequiredToJoin = long("minimum_time_required_to_join")
   val puzzleCategory = enumeration<PuzzleCategory>("puzzle_category").default(PuzzleCategory.RubiksCube)
-  val numUsers = integer("num_users").default(1)
-  val duration = long("duration").default(ONE_DAY)
-  val rawChatContent = largeText("chat_content").default("")
+  val maxDuration = long("max_duration").default(ONE_DAY)
 
-  // TODO: implement banned users IDs list
+  // TODO: define a raw chat content format for easy parsing
+  val chatRawContent = largeText("chat_raw_content").default("")
 }
 
-// TODO: other custom user-related metadata
-// TODO: include information about average value of time of each PuzzleCategory
 object Users : LongIdTable("Users") {
   val username = text("username").uniqueIndex()
   val email = text("email").uniqueIndex()
   val hashedPassword = text("hashed_password")
   val personalBestRelatedSolveId = long("personal_best_related_solve_id").references(Solves.id).nullable().default(null)
-
-  // can be null; if null, then is not in any room
   val currentRoomId = long("current_room_id").references(Rooms.id).nullable().default(null)
 }
 

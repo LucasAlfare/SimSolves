@@ -1,15 +1,30 @@
 package com.simsolves.backend.main
 
+import com.google.auth.oauth2.GoogleCredentials
+import com.google.firebase.FirebaseApp
+import com.google.firebase.FirebaseOptions
 import com.simsolves.backend.main.data.AppDB
-import com.simsolves.backend.main.data.impl.exposed.*
-import com.simsolves.backend.main.model.PuzzleCategory
-import com.simsolves.backend.main.model.User
-import com.simsolves.backend.main.model.error.Success
+import com.simsolves.backend.main.data.impl.exposed.Admins
+import com.simsolves.backend.main.data.impl.exposed.Rooms
+import com.simsolves.backend.main.data.impl.exposed.Solves
+import com.simsolves.backend.main.data.impl.exposed.Users
+import io.ktor.server.application.*
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.insertAndGetId
-import org.jetbrains.exposed.sql.update
+import java.io.FileInputStream
 
 suspend fun main() {
+  runCatching { initDatabase() }
+  runCatching { initFirebase() }
+  runCatching { initWebserver() }
+}
+
+private fun initDatabase() {
   AppDB.initialize(
     jdbcUrl = SQLITE_URL,
     jdbcDriverClassName = SQLITE_DRIVER,
@@ -18,27 +33,29 @@ suspend fun main() {
   ) {
     SchemaUtils.createMissingTablesAndColumns(Users, Rooms, Admins, Solves)
   }
+}
 
-  AppDB.query {
-    when (val creationResult = UsersHandler.createUser(User(username = "lucas123", email = "abc@def.com", password = "123"))) {
-      is Success -> {
-        val adminId = Admins.insertAndGetId {
-          it[relatedUserId] = creationResult.data
-        }
+private suspend fun initFirebase() {
+  val serviceAccount = withContext(Dispatchers.IO) {
+    FileInputStream("TODO.json")
+  }
 
-        val roomId = Rooms.insertAndGetId {
-          it[name] = "room123"
-          it[relatedAdminId] = adminId.value
-          it[puzzleCategory] = PuzzleCategory.PocketCube
-          it[minimumTimeRequiredToJoin] = 60 * 1000L
-        }
+  val options = FirebaseOptions.builder()
+    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+    .setDatabaseUrl("https://TODO-ID-POJECT.firebaseio.com/")
+    .build()
 
-        Users.update({ Users.id eq creationResult.data }) {
-          it[currentRoomId] = roomId.value
-        }
+  FirebaseApp.initializeApp(options)
 
-        println("The created room ID: ${roomId.value}")
+  // TODO: setup needed fields for real time flow here
+}
+
+private fun initWebserver() {
+  embeddedServer(Netty, port = 9999) {
+    routing {
+      get("/") {
+        call.respondText("hello")
       }
     }
-  }
+  }.start(true)
 }
