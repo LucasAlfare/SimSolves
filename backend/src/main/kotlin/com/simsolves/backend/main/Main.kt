@@ -3,11 +3,14 @@ package com.simsolves.backend.main
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
-import com.simsolves.backend.main.data.AppDB
-import com.simsolves.backend.main.data.impl.exposed.Admins
-import com.simsolves.backend.main.data.impl.exposed.Rooms
-import com.simsolves.backend.main.data.impl.exposed.Solves
-import com.simsolves.backend.main.data.impl.exposed.Users
+import com.simsolves.backend.main.data.firebase.FirebaseHandler
+import com.simsolves.backend.main.data.persistence.AppDB
+import com.simsolves.backend.main.data.persistence.exposed.Admins
+import com.simsolves.backend.main.data.persistence.exposed.Rooms
+import com.simsolves.backend.main.data.persistence.exposed.Solves
+import com.simsolves.backend.main.data.persistence.exposed.Users
+import com.simsolves.backend.main.model.User
+import com.simsolves.backend.main.model.dto.RoomDTO
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
@@ -37,17 +40,33 @@ private fun initDatabase() {
 
 private suspend fun initFirebase() {
   val serviceAccount = withContext(Dispatchers.IO) {
-    FileInputStream("TODO.json")
+    FileInputStream("apenas-um-teste-af4bb-firebase-adminsdk-r6cn5-54b238ab47.json")
   }
 
   val options = FirebaseOptions.builder()
     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-    .setDatabaseUrl("https://TODO-ID-POJECT.firebaseio.com/")
+    .setDatabaseUrl("https://apenas-um-teste-af4bb-default-rtdb.firebaseio.com/")
     .build()
 
   FirebaseApp.initializeApp(options)
 
-  // TODO: setup needed fields for real time flow here
+  FirebaseHandler.createRoom(RoomDTO(1, "criei bonito", 1L, 60_000L))
+  FirebaseHandler.createRoom(RoomDTO(2, "essa eu criei depois hehe", 1L, 60_000L))
+
+  var s = System.currentTimeMillis()
+  var e = 0
+  while (System.currentTimeMillis() - s < 3000) {
+  }
+
+  FirebaseHandler.insertUserIntoItsRoom(User(1, "", "", "", currentRoomId = 2))
+
+  s = System.currentTimeMillis()
+  e = 0
+  while (System.currentTimeMillis() - s < 5000) {
+  }
+
+//
+//  FirebaseHandler.removeUserById(1L)
 }
 
 private fun initWebserver() {

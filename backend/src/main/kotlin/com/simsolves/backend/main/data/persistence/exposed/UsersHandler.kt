@@ -1,8 +1,8 @@
-package com.simsolves.backend.main.data.impl.exposed
+package com.simsolves.backend.main.data.persistence.exposed
 
-import com.simsolves.backend.main.data.AppDB
-import com.simsolves.backend.main.data.AppServiceAdapter
-import com.simsolves.backend.main.data.impl.exposed.validator.UserCreationValidator
+import com.simsolves.backend.main.data.persistence.AppDB
+import com.simsolves.backend.main.data.persistence.AppServiceAdapter
+import com.simsolves.backend.main.data.persistence.exposed.validator.UserCreationValidator
 import com.simsolves.backend.main.model.User
 import com.simsolves.backend.main.model.error.*
 import org.jetbrains.exposed.sql.insertAndGetId

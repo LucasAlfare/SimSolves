@@ -1,4 +1,4 @@
-package com.simsolves.backend.main.data
+package com.simsolves.backend.main.data.persistence
 
 import com.simsolves.backend.main.SQLITE_DRIVER
 import com.zaxxer.hikari.HikariConfig

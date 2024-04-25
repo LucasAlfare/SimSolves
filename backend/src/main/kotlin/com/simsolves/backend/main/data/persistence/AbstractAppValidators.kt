@@ -1,4 +1,4 @@
-package com.simsolves.backend.main.data
+package com.simsolves.backend.main.data.persistence
 
 import com.simsolves.backend.main.model.User
 import com.simsolves.backend.main.model.error.AppResult

@@ -1,4 +1,4 @@
-package com.simsolves.backend.main.data.impl.exposed
+package com.simsolves.backend.main.data.persistence.exposed
 
 import com.simsolves.backend.main.ONE_DAY
 import com.simsolves.backend.main.model.Penalty

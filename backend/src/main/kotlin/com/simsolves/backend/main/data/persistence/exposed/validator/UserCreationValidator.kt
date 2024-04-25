@@ -1,8 +1,8 @@
-package com.simsolves.backend.main.data.impl.exposed.validator
+package com.simsolves.backend.main.data.persistence.exposed.validator
 
-import com.simsolves.backend.main.data.AppDB
-import com.simsolves.backend.main.data.AppValidatorAdapter
-import com.simsolves.backend.main.data.impl.exposed.Users
+import com.simsolves.backend.main.data.persistence.AppDB
+import com.simsolves.backend.main.data.persistence.AppValidatorAdapter
+import com.simsolves.backend.main.data.persistence.exposed.Users
 import com.simsolves.backend.main.model.User
 import com.simsolves.backend.main.model.error.AppResult
 import com.simsolves.backend.main.model.error.Failure
